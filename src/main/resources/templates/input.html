@@ -1,0 +1,50 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert New Contact</title>
+<script type = "text/javascript">
+    function validate(form) {
+    	if (form.name.value == "" ) {
+            alert( "The name field is required." );
+            form.name.focus() ;
+            return false;
+         }
+    	if (form.relationship.value == "" ) {
+            alert( "The relationship field is required." );
+            form.name.focus() ;
+            return false;
+         }
+    	if (form.phone.value.length != 10 ) {
+            alert( "Your phone number must be 10 digits long." );
+            form.name.focus() ;
+            return false;
+         }
+
+    	return true;
+        
+    }
+</script>
+</head>
+<body>
+	<form th:object="${newContact}"
+		th:action="@{/update/{id}(id=${newContact.id})}" onsubmit="return validate(this)" method=POST>
+		Name: <input name="name" size="20" th:field="*{name}"><br/>
+		
+		Relationship: <input name="relationship" size="20"
+			th:field="*{relationship}"><br /> 
+			
+		Phone Number: <input
+			name="phone" size="20" th:field="*{phone}"><br /> 
+			
+		Street: <input
+			name="address.street" size="20" th:field="*{address.street}"><br />
+			
+		City: <input name="address.city" size="20" th:field="*{address.city}"><br />
+		
+		State: <input name="address.state" size="20"
+			th:field="*{address.state}"> <br /> <input name="Submit"
+			type="submit" value="submit" />
+	</form>
+	<a href="../viewAll">View All Contacts</a>
+</body>
+</html>
